@@ -3,6 +3,7 @@ package com.example.alumno.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -34,16 +35,10 @@ import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-/**
- * A login screen that offers login via email/password.
- */
-public class LoginActivity extends AppCompatActivity  {
+public class LoginActivity extends AppCompatActivity {
     EditText username;
     EditText email;
     EditText password;
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +48,18 @@ public class LoginActivity extends AppCompatActivity  {
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
+        findViewById(R.id.email_sign_in_button).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
     }
-    private void login(){
 
+    private void login() {
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("userExtra", new User(username.getText().toString(),email.getText().toString(),password.getText().toString()));
+        startActivity(intent);
     }
 }
 
